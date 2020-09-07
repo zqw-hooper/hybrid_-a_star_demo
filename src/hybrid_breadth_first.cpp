@@ -136,9 +136,10 @@ HBF::maze_path HBF::search(vector<vector<int>> grid, vector<double> start, vecto
   and as a result this is pretty inefficient. Try modifying this algorithm 
   into hybrid A* by adding heuristics appropriately.
   */
-
+  int num = max(grid[0].size(), grid.size());
+  vector<vector<vector<int>>> closed(NUM_THETA_CELLS, vector<vector<int>>(num, vector<int>(num)));
   // theta,x,y 三个状态量
-  vector<vector<vector<int>>> closed(NUM_THETA_CELLS, vector<vector<int>>(grid[0].size(), vector<int>(grid.size())));
+  // vector<vector<vector<int>>> closed(NUM_THETA_CELLS, vector<vector<int>>(grid[0].size(), vector<int>(grid.size())));
   vector<vector<vector<maze_s>>> came_from(NUM_THETA_CELLS, vector<vector<maze_s>>(grid[0].size(), vector<maze_s>(grid.size())));
   double theta = start[2];
   int stack = theta_to_stack_number(theta);

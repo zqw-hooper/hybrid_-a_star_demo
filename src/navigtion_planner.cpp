@@ -31,13 +31,9 @@
 #include "misc/robot_config.h"
 #include "event/global_common_event_def.h"
 
-
-
-
 // #include "mpc_planner_log.h"
 #include "mpc_task.h"
 #include "mpc_planner.h"
-
 
 using namespace ak_planning_planner;
 using namespace ak_planning_utils;
@@ -55,7 +51,6 @@ using namespace ak_planning_controller;
 //     END_GLOBAL_PLANNER_INPUT(path_follow)
 // } // namespace ak_planning_planner
 
-
 namespace ak_planning_planner
 {
     struct navigtionPlannerStates
@@ -71,32 +66,6 @@ namespace ak_planning_planner
         {
             virtual void OnEnter() // OnEnter is invoked when a State is created
             {
-                // navigtion_DEBUG_LOG("Enter Disable...");
-                // std::cout << "OnEnter   " << std::endl;
-                // bool find_path = g_navigtion_planner.Hybrid_A_star();
-                // std::vector<AKPose> m_global_path = g_navigtion_planner.get_global_path();
-                // if (find_path == true && m_global_path.size() > 2)
-                // {
-
-                //     std::cout << "find global path, and call path_follow_planner(op_local_Planner)" << std::endl;
-
-                //     { //debug only  // 应该在ak_plan_service里面已经初始化好了
-                //         // ThreadPool pool(2);
-                //         // ConfigManager cfg_mgr;
-                //         // cfg_mgr.LoadConfig("/home/zy/Desktop/B800_new_framework/akplanning/config/planning.yaml");
-                //         // g_path_follow_planner.init(cfg_mgr, &pool);
-                //         CREATE_GLOBAL_PLANNER_INPUT(path_followPlannerInput, path_follow_input);
-                //         path_follow_input->global_path = m_global_path;
-                //         std::cout<<"path_follow_input->global_path.size()   "<<path_follow_input->global_path.size()<<std::endl;
-                //         g_path_follow_planner.startPlanner(path_follow_input);
-                //     }
-                //     // g_path_follow_planner.init(cfg_mgr, &pool);
-                // }
-                // else
-                // {
-                //     std::cout << "fail to find global path, stop the robot and calling for help" << std::endl;
-                //     g_navigtion_planner.stopRobot();
-                // }
             }
 
             virtual void OnExit()
@@ -137,22 +106,15 @@ namespace ak_planning_planner
                 if (find_path == true && m_global_path.size() > 2)
                 {
 
-                    std::cout << "find global path, and call path_follow_planner(op_local_Planner)" << std::endl;
+                    std::cout << "find global path" << std::endl;
 
                     { //debug only  // 应该在ak_plan_service里面已经初始化好了
-                        // ThreadPool pool(2);
-                        // ConfigManager cfg_mgr;
-                        // cfg_mgr.LoadConfig("/home/zy/Desktop/B800_new_framework/akplanning/config/planning.yaml");
-                        // g_path_follow_planner.init(cfg_mgr, &pool);
+                        // 调用 path_follow_planner
                         CREATE_GLOBAL_PLANNER_INPUT(path_followPlannerInput, path_follow_input);
                         path_follow_input->global_path = m_global_path;
                         std::cout << "path_follow_input->global_path.size()   " << path_follow_input->global_path.size() << std::endl;
-
-                        // g_path_follow_planner.m_run_sm.Initialize<path_followPlannerStates::>
-
                         m_path_follow_planner_input_id = g_path_follow_planner.startPlanner(path_follow_input);
                     }
-                    // g_path_follow_planner.init(cfg_mgr, &pool);
                 }
                 else
                 {
@@ -165,13 +127,13 @@ namespace ak_planning_planner
             {
                 navigtion_DEBUG_LOG("Exit Enable...");
                 // g_navigtion_planner.stopPlanner();
-                g_path_follow_planner.stopPlanner();
+                // g_path_follow_planner.stopPlanner();
                 Owner().stopThread();
             }
 
             virtual Transition GetTransition()
             {
-                
+
                 // // 判断pure_pursuit的event
                 // EvtList &evt_list = Owner().m_evt_list;
                 // for (auto &evt : evt_list)
@@ -255,7 +217,9 @@ Transition navigtionPlanner::restoreContext(ContextPtr ctx)
 }
 
 void navigtionPlanner::getData()
-{
+{ // need to get global_map
+    g_dc.getData<DataLocalMap>(m_simple_global_map);
+    g_dc.getData<DataSlam>(m_slam_data);
 }
 
 void navigtionPlanner::finishPlanning()
@@ -341,7 +305,7 @@ bool navigtionPlanner::Hybrid_A_star()
 
         // 最终的路径点
         vector<HBF::maze_s> show_path = hbf.reconstruct_path(get_path.came_from, START, get_path.final);
-        for (int p = show_path.size()-1; p >= 0; p--)
+        for (int p = show_path.size() - 1; p >= 0; p--)
         {
             AKPose tmp_pose;
             // to_do

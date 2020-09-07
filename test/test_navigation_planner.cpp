@@ -87,7 +87,7 @@ int main()
 
     // global_planner init   // g_表示全局
     g_navigtion_planner.init(cfg_mgr, &pool);
-    g_path_follow_planner.init(cfg_mgr, &pool);
+    // g_path_follow_planner.init(cfg_mgr, &pool);
 
     OPEN_LOG_EXCEPT();
 

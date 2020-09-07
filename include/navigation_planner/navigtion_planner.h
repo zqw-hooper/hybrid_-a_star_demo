@@ -13,6 +13,7 @@
 
 #include "planner/global_planner.h"
 #include "data/slam_data.h"
+#include "data/local_map_data.h"
 
 namespace ak_planning_planner
 {
@@ -20,10 +21,10 @@ namespace ak_planning_planner
     DEFINE_GLOBAL_PLANNER(navigtion)
 
 public:
-
- std::vector<AKPose> get_global_path(){
-     return navigation_global_path;
- }
+    std::vector<AKPose> get_global_path()
+    {
+        return navigation_global_path;
+    }
 
 private:
     float loadConfig(ConfigManager &cfg_mgr);
@@ -51,6 +52,9 @@ private:
 
     // log数据的路径
 
+    DataSlam m_slam_data;
+    // 全局地图
+    DataLocalMap m_simple_global_map;
     // Hybrid A* 需要起点和终点, 全局地图
     int persist_map_hybrid_A_star[800][800];
 
