@@ -111,7 +111,7 @@ int main()
     grids.emplace_back(point_3);
     grids.emplace_back(point_4);
 
-    CREATE_GLOBAL_PLANNER_INPUT(navigationPlannerInput, navigation_input);
+    CREATE_GLOBAL_PLANNER_INPUT(NavigationPlannerInput, navigation_input);
     navigation_input->clean_dir = 0.0f;
     navigation_input->clean_width = 0.15f;
     AKAreaPtr area = std::make_shared<AKArea>(grids);

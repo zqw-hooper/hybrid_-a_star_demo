@@ -40,17 +40,6 @@ using namespace ak_planning_utils;
 using namespace ak_planning_data;
 using namespace ak_planning_controller;
 
-// namespace ak_planning_planner
-// {
-//     DEFINE_GLOBAL_PLANNER_INPUT(path_follow)
-//     AKAreaPtr area;            // 目标清扫区域
-//     float clean_dir = -1.0f;   // 清扫方向（0 - 2PI中的某个角度)，-1使用默认值
-//     float clean_width = -1.0f; // 弓字形清扫间距，-1使用默认值
-
-//     std::vector<AKPose> global_path;
-//     END_GLOBAL_PLANNER_INPUT(path_follow)
-// } // namespace ak_planning_planner
-
 namespace ak_planning_planner
 {
     struct navigtionPlannerStates
