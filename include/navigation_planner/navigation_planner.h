@@ -77,4 +77,4 @@ private:
 
 extern ak_planning_planner::NavigtionPlanner &g_navigtion_planner;
 
-#endif // PLANNER_navigtion_PLANNER_H
+#endif // PLANNER_Navigtion_PLANNER_H

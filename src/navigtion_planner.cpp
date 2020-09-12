@@ -70,7 +70,7 @@ namespace ak_planning_planner
 
             virtual void OnExit()
             {
-                navigtion_DEBUG_LOG("Exit Disable...");
+                NAVIGATION_DEBUG_LOG("Exit Disable...");
                 std::cout << "OnEnter   " << std::endl;
             }
 
@@ -89,7 +89,7 @@ namespace ak_planning_planner
 
             virtual void Update()
             {
-                navigtion_DEBUG_LOG("Disable...");
+                NAVIGATION_DEBUG_LOG("Disable...");
             }
         };
 
@@ -97,7 +97,7 @@ namespace ak_planning_planner
         {
             virtual void OnEnter()
             {
-                navigtion_DEBUG_LOG("Enter Enable...");
+                NAVIGATION_DEBUG_LOG("Enter Enable...");
                 Owner().dispatchThread();
                 // navigtion_DEBUG_LOG("Enter Disable...");
                 std::cout << "OnEnter  navigtion_ Enable : BaseState" << std::endl;
@@ -125,7 +125,7 @@ namespace ak_planning_planner
 
             virtual void OnExit()
             {
-                navigtion_DEBUG_LOG("Exit Enable...");
+                NAVIGATION_DEBUG_LOG("Exit Enable...");
                 // g_navigtion_planner.stopPlanner();
                 // g_path_follow_planner.stopPlanner();
                 Owner().stopThread();
@@ -157,7 +157,7 @@ namespace ak_planning_planner
 
             virtual void Update()
             {
-                navigtion_DEBUG_LOG("Enable...");
+                NAVIGATION_DEBUG_LOG("Enable...");
             }
             int64_t m_path_follow_planner_input_id;
         };
@@ -169,13 +169,13 @@ namespace ak_planning_planner
                 // navigtion_DEBUG_LOG("Enter Finished, Rotate task finished");
                 Owner().finishPlanning();
 
-                navigtion_DEBUG_LOG("set stop flag, change to Idle");
+                NAVIGATION_DEBUG_LOG("set stop flag, change to Idle");
                 Owner().m_stop_flag = true;
             }
 
             virtual void OnExit()
             {
-                navigtion_DEBUG_LOG("Exit Finished");
+                NAVIGATION_DEBUG_LOG("Exit Finished");
             }
 
             virtual Transition GetTransition()
