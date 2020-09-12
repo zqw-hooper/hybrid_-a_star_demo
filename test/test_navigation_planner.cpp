@@ -9,7 +9,7 @@
 *******************************************************************************/
 
 
-#include "navigtion_planner.h"
+#include "navigation_planner.h"
 #include "navigation_planner_input.h"
 #include "hybrid_breadth_first.h"
 
@@ -87,7 +87,7 @@ int main()
 
     // global_planner init   // g_表示全局
     g_navigtion_planner.init(cfg_mgr, &pool);
-    // g_path_follow_planner.init(cfg_mgr, &pool);
+    g_path_follow_planner.init(cfg_mgr, &pool);
 
     OPEN_LOG_EXCEPT();
 

@@ -8,8 +8,8 @@
 * Description : 覆盖全局规划器定义
 *******************************************************************************/
 
-#ifndef PLANNER_navigtion_PLANNER_H
-#define PLANNER_navigtion_PLANNER_H
+#ifndef PLANNER_NAVIGATION_PLANNER_H
+#define PLANNER_NAVIGATION_PLANNER_H
 
 #include "planner/global_planner.h"
 #include "data/slam_data.h"
@@ -18,7 +18,7 @@
 namespace ak_planning_planner
 {
 
-    DEFINE_GLOBAL_PLANNER(navigtion)
+    DEFINE_GLOBAL_PLANNER(Navigtion)
 
 public:
     std::vector<AKPose> get_global_path()
@@ -71,10 +71,10 @@ private:
 
     friend struct navigtionPlannerStates;
 
-    END_GLOBAL_PLANNER(navigtion)
+    END_GLOBAL_PLANNER(Navigtion)
 
 } // namespace ak_planning_planner
 
-extern ak_planning_planner::navigtionPlanner &g_navigtion_planner;
+extern ak_planning_planner::NavigtionPlanner &g_navigtion_planner;
 
 #endif // PLANNER_navigtion_PLANNER_H

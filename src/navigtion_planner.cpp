@@ -8,7 +8,7 @@
 * Description : Hybrid A* (全局路径规划)
 *******************************************************************************/
 
-#include "navigtion_planner.h"
+#include "navigation_planner.h"
 #include "navigation_planner_input.h"
 #include "hybrid_breadth_first.h"
 #include "navigation_planner_log.h"
@@ -58,7 +58,7 @@ namespace ak_planning_planner
         // Class that clients can use instead of deriving directly from State that provides convenient
         // typed access to the Owner. This class can also be chained via the StateBaseType parameter,
         // which is useful when inheriting state machines.
-        struct BaseState : StateWithOwner<navigtionPlanner>
+        struct BaseState : StateWithOwner<NavigtionPlanner>
         {
         };
 
@@ -186,43 +186,43 @@ namespace ak_planning_planner
     };
 } // namespace ak_planning_planner
 
-navigtionPlanner &g_navigtion_planner = navigtionPlanner::getInstance();
+NavigtionPlanner &g_navigtion_planner = NavigtionPlanner::getInstance();
 
-float navigtionPlanner::loadConfig(ConfigManager &cfg_mgr)
+float NavigtionPlanner::loadConfig(ConfigManager &cfg_mgr)
 {
 }
 
-void navigtionPlanner::initRunSM()
+void NavigtionPlanner::initRunSM()
 {
     m_run_sm.Initialize<navigtionPlannerStates::Disable>(this);
-    m_run_sm.SetDebugInfo("navigtionPlanner", TraceLevel::None);
+    m_run_sm.SetDebugInfo("NavigtionPlanner", TraceLevel::None);
     m_run_sm.ProcessStateTransitions();
     m_run_sm.UpdateStates();
 }
 
-void navigtionPlanner::reset()
+void NavigtionPlanner::reset()
 {
 }
 
-void navigtionPlanner::stopRobot()
+void NavigtionPlanner::stopRobot()
 {
 }
 
-ContextPtr navigtionPlanner::saveContext()
+ContextPtr NavigtionPlanner::saveContext()
 {
 }
 
-Transition navigtionPlanner::restoreContext(ContextPtr ctx)
+Transition NavigtionPlanner::restoreContext(ContextPtr ctx)
 {
 }
 
-void navigtionPlanner::getData()
+void NavigtionPlanner::getData()
 { // need to get global_map
     g_dc.getData<DataLocalMap>(m_simple_global_map);
     g_dc.getData<DataSlam>(m_slam_data);
 }
 
-void navigtionPlanner::finishPlanning()
+void NavigtionPlanner::finishPlanning()
 {
     stopRobot();
 
@@ -235,13 +235,13 @@ void navigtionPlanner::finishPlanning()
     g_ec.pushEvent(ev_navigtion_finished);
 }
 
-bool navigtionPlanner::handleInput(const GlobalPlannerInputPtr input)
+bool NavigtionPlanner::handleInput(const GlobalPlannerInputPtr input)
 {
     // Hybrid_A_star();
     return true;
 }
 
-bool navigtionPlanner::Hybrid_A_star()
+bool NavigtionPlanner::Hybrid_A_star()
 {
     // Hybrid A* searching in cost map
     {
